@@ -1,4 +1,5 @@
 import styles from "./ReposList.module.scss";
+
 type ReposListProps = {
   repodata: {
     name: string;
@@ -8,7 +9,8 @@ type ReposListProps = {
     stargazers_count: number;
   }[];
 };
-const RepoLists = ({ repodata }: ReposListProps) => {
+
+export const RepoLists = ({ repodata }: ReposListProps) => {
   return (
     <div className={styles.reposList}>
       <h1>Repositiories</h1>
@@ -28,4 +30,3 @@ const RepoLists = ({ repodata }: ReposListProps) => {
     </div>
   );
 };
-export default RepoLists;

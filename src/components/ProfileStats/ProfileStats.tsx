@@ -5,6 +5,7 @@ type ProfileStatsProps = {
   followers: number;
   following: number;
 };
+
 export default function ProfileStats({
   repoCount,
   followers,

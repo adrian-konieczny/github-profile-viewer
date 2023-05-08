@@ -1,10 +1,9 @@
 import HeaderBanner from "@/components/HeaderBanner/HeaderBanner";
 import ProfileStats from "@/components/ProfileStats/ProfileStats";
-import RepoLists from "@/components/ReposList/ReposList";
+import { RepoLists } from "@/components/ReposList/ReposList";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
-import Image from "next/image";
-import { FunctionComponent } from "react";
+
 type UserPageProps = {
   data: {
     login: string;
@@ -25,6 +24,7 @@ type UserPageProps = {
     stargazers_count: number;
   }[];
 };
+
 type Data = {
   login: string;
   id: number;
@@ -33,20 +33,28 @@ type Data = {
   name: string;
   bio: string;
 };
+
 export const getServerSideProps: GetServerSideProps<{ data: Data }> = async ({
+  res,
   query,
 }) => {
-  // console.log(params);
-  const res = await fetch(`https://api.github.com/users/${query.id}`);
-  const data: Data = await res.json();
+  const response = await fetch(`https://api.github.com/users/${query.id}`);
+  const data: Data = await response.json();
+
   const repores = await fetch(`https://api.github.com/users/${query.id}/repos`);
   const repodata = await repores.json();
+
+  res.setHeader(
+    "Cache-Control",
+    "public, s-maxage=60, stale-while-revalidate=120"
+  );
+
   return {
     props: { data, repodata },
   };
 };
+
 export default function UserPage({ data, repodata }: UserPageProps) {
-  console.log(data);
   return (
     <>
       <Head>
