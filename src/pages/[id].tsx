@@ -1,6 +1,7 @@
 import HeaderBanner from "@/components/HeaderBanner/HeaderBanner";
 import ProfileStats from "@/components/ProfileStats/ProfileStats";
 import { RepoLists } from "@/components/ReposList/ReposList";
+import { Return } from "@/components/Return/Return";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
@@ -72,6 +73,7 @@ export default function UserPage({ data, repodata }: UserPageProps) {
         following={data.following}
       />
       <RepoLists repodata={repodata} />
+      <Return />
     </>
   );
 }
