@@ -1,3 +1,8 @@
+:root {
+  --font-family: Verdana, Geneva, Tahoma, sans-serif;
+  --nice-blue: #34a8eb;
+  --banner-color: #130640;
+}
 html,
 body {
   padding: 0;

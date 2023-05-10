@@ -5,7 +5,7 @@
   justify-content: space-around;
   margin: 10px;
   list-style-type: none;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-family: var(--font-family);
   li {
     align-items: center;
     display: flex;
