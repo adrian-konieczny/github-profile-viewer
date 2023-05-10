@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Info } from "../Info/Info";
 import { FetchUser } from "../FetchUser/FetchUser";
 import styles from "./LandingPage.scss";
+
 export const LandingPage = () => {
   return (
     <>
