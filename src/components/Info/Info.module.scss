@@ -1,11 +1,9 @@
-$font-family: Verdana, Geneva, Tahoma, sans-serif;
-
 .info {
-  background-color: #130640;
+  width: 100%;
+  background-color: var(--banner-color);
   display: flex;
   flex-direction: column;
   align-items: center;
-  font-family: $font-family;
   padding: 10px;
   h1 {
     color: white;

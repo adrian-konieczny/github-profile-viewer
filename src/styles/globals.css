@@ -1,7 +1,12 @@
+:root {
+  --nice-blue: #34a8eb;
+  --banner-color: #130640;
+}
 html,
 body {
   padding: 0;
   margin: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 * {
