@@ -2,6 +2,19 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-
   border: 1px solid gray;
+  padding: 10px;
+  margin: 25px;
+  border-radius: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: #34a8eb;
+  h1 {
+    color: White;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

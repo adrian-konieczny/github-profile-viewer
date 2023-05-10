@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Info } from "../Info/Info";
 import { FetchUser } from "../FetchUser/FetchUser";
-import styles from "./LandingPage.scss";
+import styles from "./LandingPage.module.scss";
 
 export const LandingPage = () => {
   return (

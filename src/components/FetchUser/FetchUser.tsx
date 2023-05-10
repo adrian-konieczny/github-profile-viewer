@@ -15,7 +15,7 @@ export const FetchUser = () => {
     <div className={styles.user}>
       <h1>Pick Your Profile</h1>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="userInput">Type username:</label>
+        <label htmlFor="userInput">Type username</label>
         <input type="text" ref={username} />
         <button>Check</button>
       </form>
