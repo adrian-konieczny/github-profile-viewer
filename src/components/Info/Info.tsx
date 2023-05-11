@@ -10,7 +10,7 @@ export const Info = () => {
       </div>
       <div>
         You can preview here some basic info about github users by typing
-        username after /
+        username
       </div>
     </div>
   );
