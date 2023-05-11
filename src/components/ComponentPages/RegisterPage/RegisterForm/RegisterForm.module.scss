@@ -1,0 +1,23 @@
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid gray;
+  padding: 10px;
+  margin: 25px;
+  border-radius: 10px;
+  background-color: #34a8eb;
+  padding: 20px 80px;
+  h1 {
+    color: White;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.error {
+  border: 2px solid red;
+  background-color: #ffa1a2;
+}

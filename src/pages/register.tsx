@@ -1,10 +1,6 @@
-import { RegisterInfo } from "@/components/RegisterInfo/RegisterInfo";
+import RegisterPage from "@/components/ComponentPages/RegisterPage/RegisterPage";
 
 export const Register = () => {
-  return (
-    <>
-      <RegisterInfo />
-    </>
-  );
+  return <RegisterPage />;
 };
 export default Register;

@@ -8,7 +8,8 @@ export default async function handler(
 ) {
   const client = await clientPromise;
   const db = client.db("Github-Profile-Viewer");
-  const { email, password } = req.body;
+  const { email, password } = JSON.parse(req.body);
+  console.log(email);
 
   const result = await db.collection("Users").findOne({
     email: email,
@@ -16,9 +17,7 @@ export default async function handler(
 
   if (result) {
     res.status(400).json({
-      error: {
-        message: "User is already existing",
-      },
+      message: "User is already existing",
     });
   } else {
     const passwordHash = await hash(password);
