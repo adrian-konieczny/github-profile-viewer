@@ -1,19 +1,22 @@
-import mongoose from "mongoose";
+import { MongoClient } from "mongodb";
 
-const { MONGODB_URI } = process.env;
+const uri = process.env.DB;
+const options = {};
 
-export const connect = async () => {
-  const conn = await mongoose
-    .connect(MONGODB_URI as string)
-    .catch((err) => console.log(err));
-  console.log("Mongoose Connection Established");
+let client;
+let clientPromise: Promise<MongoClient>;
 
-  const UserSchema = new mongoose.Schema({
-    name: String,
-    likes: Number,
-  });
+if (!uri) throw new Error("Please add your Mongo URI to .env.local");
 
-  const User = mongoose.models.User || mongoose.model("User", UserSchema);
+if (process.env.NODE_ENV === "development") {
+  if (!global._mongoClientPromise) {
+    client = new MongoClient(uri, options);
+    global._mongoClientPromise = client.connect();
+  }
+  clientPromise = global._mongoClientPromise;
+} else {
+  client = new MongoClient(uri, options);
+  clientPromise = client.connect();
+}
 
-  return { conn, User };
-};
+export default clientPromise;
