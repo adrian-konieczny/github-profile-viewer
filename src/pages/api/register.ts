@@ -9,7 +9,6 @@ export default async function handler(
   const client = await clientPromise;
   const db = client.db("Github-Profile-Viewer");
   const { email, password } = JSON.parse(req.body);
-  console.log(email);
 
   const result = await db.collection("Users").findOne({
     email: email,
@@ -21,10 +20,12 @@ export default async function handler(
     });
   } else {
     const passwordHash = await hash(password);
+
     db.collection("Users").insertOne({
       email: email,
       password: passwordHash,
     });
+
     res.status(200).json({
       message: "User registered successfully",
     });

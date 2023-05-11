@@ -1,0 +1,14 @@
+.info {
+  background-color: var(--banner-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  width: 100%;
+  h1 {
+    color: white;
+  }
+  div {
+    color: gray;
+  }
+}
