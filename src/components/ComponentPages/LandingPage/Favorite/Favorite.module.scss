@@ -1,0 +1,13 @@
+.favorite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  ul {
+    padding: 5px;
+    list-style-type: none;
+  }
+}
+.link {
+  text-decoration: none;
+  color: aqua;
+}

@@ -15,7 +15,5 @@ export default async function handler(
       path: "/",
     })
   );
-  res.status(200).json({
-    message: "Logged out successfuly",
-  });
+  res.redirect("/");
 }

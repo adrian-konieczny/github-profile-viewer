@@ -24,6 +24,7 @@ export default async function handler(
     db.collection("Users").insertOne({
       email: email,
       password: passwordHash,
+      favorites: ["datejer", "adrian-konieczny"],
     });
 
     res.status(200).json({

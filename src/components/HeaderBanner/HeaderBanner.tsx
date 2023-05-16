@@ -15,8 +15,39 @@ export default function HeaderBanner({
   bio,
   name,
 }: HeaderBannerProps) {
-  const { isLoggedIn, user } = useAuth();
-  console.log(user);
+  const { isLoggedIn, user, updateUser } = useAuth();
+  const add = async () => {
+    const res = await fetch("/api/update", {
+      method: "POST",
+      body: JSON.stringify({ name: login, action: "add", email: user?.email }),
+    });
+    const fetchSession = async () => {
+      const res = await fetch("/api/session");
+      const { user } = await res.json();
+      console.log(user);
+      console.log(isLoggedIn);
+      updateUser(user);
+    };
+    fetchSession();
+  };
+  const remove = async () => {
+    const res = await fetch("/api/update", {
+      method: "POST",
+      body: JSON.stringify({
+        name: login,
+        action: "remove",
+        email: user?.email,
+      }),
+    });
+    const fetchSession = async () => {
+      const res = await fetch("/api/session");
+      const { user } = await res.json();
+      console.log(user);
+      console.log(isLoggedIn);
+      updateUser(user);
+    };
+    fetchSession();
+  };
   return (
     <div className={styles.headerBanner}>
       <Image
@@ -30,7 +61,11 @@ export default function HeaderBanner({
       <div className={styles.text}>{login}</div>
       <div className={styles.text}>{bio}</div>
       {isLoggedIn ? (
-        <button>Add to favorites</button>
+        !user?.favorite?.includes(login) ? (
+          <button onClick={add}>Add to favorites</button>
+        ) : (
+          <button onClick={remove}>Remove from favorites</button>
+        )
       ) : (
         <div className={styles.text}>login to gain access to favorites</div>
       )}
