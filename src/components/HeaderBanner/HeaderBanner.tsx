@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./HeaderBanner.module.scss";
+import { useAuth } from "@/contexts/AuthContext";
 
 type HeaderBannerProps = {
   login: string;
@@ -14,6 +15,8 @@ export default function HeaderBanner({
   bio,
   name,
 }: HeaderBannerProps) {
+  const { isLoggedIn, user } = useAuth();
+  console.log(user);
   return (
     <div className={styles.headerBanner}>
       <Image
@@ -26,6 +29,11 @@ export default function HeaderBanner({
       <h2 className={styles.name}>{name}</h2>
       <div className={styles.text}>{login}</div>
       <div className={styles.text}>{bio}</div>
+      {isLoggedIn ? (
+        <button>Add to favorites</button>
+      ) : (
+        <div className={styles.text}>login to gain access to favorites</div>
+      )}
     </div>
   );
 }

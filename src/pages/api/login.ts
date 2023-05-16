@@ -3,10 +3,13 @@ import clientPromise from "@/lib/mongodb/connection";
 import { compare } from "bcrypt";
 import cookie from "cookie";
 import jwt from "jsonwebtoken";
+
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  console.log(req.cookies);
+
   const client = await clientPromise;
   const db = client.db("Github-Profile-Viewer");
   const { email, password } = JSON.parse(req.body);
@@ -22,20 +25,22 @@ export default async function handler(
       const token = jwt.sign({ email: email }, JWT_TOKEN_KEY, {
         expiresIn: "1d",
       });
-      res.setHeader(
-        "Set-Cookie",
-        cookie.serialize("token", token, {
-          httpOnly: true,
-          maxAge: 60 * 60,
-          secure: process.env.NODE_ENV !== "development",
-          sameSite: "strict",
-          path: "/",
-        })
-      );
-      res.status(200).json({
-        message: "Logged in successfuly",
-        user: email,
-      });
+      res
+        .setHeader(
+          "Set-Cookie",
+          cookie.serialize("token", token, {
+            httpOnly: true,
+            maxAge: 60 * 60,
+            secure: process.env.NODE_ENV !== "development",
+            sameSite: "strict",
+            path: "/",
+          })
+        )
+        .status(200)
+        .json({
+          message: "Logged in successfuly",
+          user: email,
+        });
     } else {
       res.status(400).json({
         message: "Password is invalid",

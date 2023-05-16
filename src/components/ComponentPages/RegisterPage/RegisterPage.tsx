@@ -3,6 +3,7 @@ import RegisterInfo from "./RegisterInfo/RegisterInfo";
 import RegisterForm from "./RegisterForm/RegisterForm";
 import styles from "./RegisterPage.module.scss";
 import { Return } from "@/components/Return/Return";
+import Navbar from "@/components/Navbar/Navbar";
 
 export const RegisterPage = () => {
   return (
@@ -17,6 +18,7 @@ export const RegisterPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.page}>
+        <Navbar />
         <RegisterInfo />
         <RegisterForm />
         <Return />

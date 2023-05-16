@@ -1,5 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import styles from "./LoginForm.module.scss";
+import { useAuth } from "@/contexts/AuthContext";
+import { useRouter } from "next/router";
 
 type IFormInput = {
   email: string;
@@ -11,15 +13,27 @@ export default function LoginForm() {
     formState: { errors },
     handleSubmit,
   } = useForm<IFormInput>();
+  const router = useRouter();
+  const { updateUser } = useAuth();
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     console.log(data);
     const res = await fetch("/api/login", {
       method: "POST",
       body: JSON.stringify(data),
     });
-    const { message } = await res.json();
+    const { message, user } = await res.json();
     if (message) {
       alert(message);
+    }
+    if (user) {
+      const fetchSession = async () => {
+        const res = await fetch("/api/session");
+        const data = await res.json();
+        updateUser(data);
+      };
+
+      fetchSession();
+      router.push("/");
     }
   };
 

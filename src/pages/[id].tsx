@@ -2,6 +2,8 @@ import HeaderBanner from "@/components/HeaderBanner/HeaderBanner";
 import ProfileStats from "@/components/ProfileStats/ProfileStats";
 import { RepoLists } from "@/components/ReposList/ReposList";
 import { Return } from "@/components/Return/Return";
+import { useAuth } from "@/contexts/AuthContext";
+import { verifyAuth } from "@/lib/utils/verify";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
@@ -36,6 +38,7 @@ type Data = {
 };
 
 export const getServerSideProps: GetServerSideProps<{ data: Data }> = async ({
+  req,
   res,
   query,
 }) => {

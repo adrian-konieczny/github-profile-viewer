@@ -1,6 +1,6 @@
 import Bcrypt from "bcrypt";
 
-const SALT_ROUNDS = 10;
+const SALT_ROUNDS = Number(process.env.SALT_ROUNDS);
 
 export const hash = (password: string) => {
   return Bcrypt.hash(password, SALT_ROUNDS);

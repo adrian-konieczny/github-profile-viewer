@@ -2,6 +2,7 @@ import Head from "next/head";
 import LoginInfo from "./LoginInfo/LoginInfo";
 import LoginForm from "./LoginForm/LoginForm";
 import styles from "./LoginPage.module.scss";
+import Navbar from "@/components/Navbar/Navbar";
 export const LoginPage = () => {
   return (
     <>
@@ -15,6 +16,7 @@ export const LoginPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className={styles.page}>
+        <Navbar />
         <LoginInfo />
         <LoginForm />
       </div>
