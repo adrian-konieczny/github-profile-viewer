@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import clientPromise from "@/lib/mongodb/connection";
-import { hash } from "../../lib/utils/bcryptHash";
 
 export default async function handler(
   req: NextApiRequest,
@@ -8,20 +7,20 @@ export default async function handler(
 ) {
   const client = await clientPromise;
   const db = client.db("Github-Profile-Viewer");
-  const { email, name, action } = JSON.parse(req.body);
+  const { email, login, action, avatar } = JSON.parse(req.body);
   if (action == "add") {
     await db.collection("Users").updateOne(
       {
         email: email,
       },
-      { $push: { favorite: name } }
+      { $push: { favorite: { login, avatar } } }
     );
   } else if (action == "remove") {
     await db.collection("Users").updateOne(
       {
         email: email,
       },
-      { $pull: { favorite: name } }
+      { $pull: { favorite: { login, avatar } } }
     );
   } else {
     return res.status(400).json({

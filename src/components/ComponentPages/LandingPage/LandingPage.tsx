@@ -5,15 +5,13 @@ import styles from "./LandingPage.module.scss";
 import Navbar from "@/components/Navbar/Navbar";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
-import Favorites, { Favorite } from "./Favorite/Favorite";
+import { Favorite } from "./Favorite/Favorite";
 
 export const LandingPage = () => {
   const { updateUser, isLoggedIn, user } = useAuth();
   const fetchSession = async () => {
     const res = await fetch("/api/session");
     const { user } = await res.json();
-    console.log(user);
-    console.log(isLoggedIn);
     updateUser(user);
   };
   useEffect(() => {
@@ -30,8 +28,10 @@ export const LandingPage = () => {
       <div className={styles.home}>
         <Navbar />
         <Info />
-        <FetchUser />
-        {user?.favorite ? <Favorite names={user?.favorite} /> : ""}
+        <div className={styles.main}>
+          <FetchUser />
+          {user?.favorite ? <Favorite users={user?.favorite} /> : ""}
+        </div>
       </div>
     </>
   );

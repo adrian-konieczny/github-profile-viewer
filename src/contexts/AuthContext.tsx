@@ -7,7 +7,7 @@ import {
 } from "react";
 
 type User = {
-  favorite?: string[];
+  favorite?: { login: string; avatar: string }[];
   email?: string;
 };
 
@@ -24,15 +24,15 @@ type AuthContextProviderProps = {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
-  const updateUser = (user: User) => {
+  const updateUser = (user?: User) => {
     setUser(user);
   };
   const [user, setUser] = useState<User | undefined>(undefined);
   useEffect(() => {
     const fetchSession = async () => {
       const res = await fetch("/api/session");
-      const data = await res.json();
-      setUser(data);
+      const { user } = await res.json();
+      setUser(user);
     };
 
     fetchSession();

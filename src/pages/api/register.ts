@@ -15,7 +15,7 @@ export default async function handler(
   });
 
   if (result) {
-    res.status(400).json({
+    return res.status(400).json({
       message: "User is already existing",
     });
   } else {
@@ -24,7 +24,7 @@ export default async function handler(
     db.collection("Users").insertOne({
       email: email,
       password: passwordHash,
-      favorites: ["datejer", "adrian-konieczny"],
+      favorite: [],
     });
 
     res.status(200).json({

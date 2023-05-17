@@ -52,7 +52,6 @@ export const getServerSideProps: GetServerSideProps<{ data: Data }> = async ({
     "Cache-Control",
     "public, s-maxage=60, stale-while-revalidate=120"
   );
-  console.log({ data, repodata });
   return {
     props: { data, repodata },
   };
@@ -83,7 +82,10 @@ export default function UserPage({ data, repodata }: UserPageProps) {
             <Return />
           </>
         ) : (
-          <h1>User not found</h1>
+          <>
+            <h1>User not found</h1>
+            <Return />
+          </>
         )}
       </div>
     </>

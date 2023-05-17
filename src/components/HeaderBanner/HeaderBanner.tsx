@@ -19,13 +19,16 @@ export default function HeaderBanner({
   const add = async () => {
     const res = await fetch("/api/update", {
       method: "POST",
-      body: JSON.stringify({ name: login, action: "add", email: user?.email }),
+      body: JSON.stringify({
+        login,
+        action: "add",
+        email: user?.email,
+        avatar: avatar_url,
+      }),
     });
     const fetchSession = async () => {
       const res = await fetch("/api/session");
       const { user } = await res.json();
-      console.log(user);
-      console.log(isLoggedIn);
       updateUser(user);
     };
     fetchSession();
@@ -34,16 +37,15 @@ export default function HeaderBanner({
     const res = await fetch("/api/update", {
       method: "POST",
       body: JSON.stringify({
-        name: login,
+        login,
         action: "remove",
         email: user?.email,
+        avatar: avatar_url,
       }),
     });
     const fetchSession = async () => {
       const res = await fetch("/api/session");
       const { user } = await res.json();
-      console.log(user);
-      console.log(isLoggedIn);
       updateUser(user);
     };
     fetchSession();
@@ -61,10 +63,16 @@ export default function HeaderBanner({
       <div className={styles.text}>{login}</div>
       <div className={styles.text}>{bio}</div>
       {isLoggedIn ? (
-        !user?.favorite?.includes(login) ? (
-          <button onClick={add}>Add to favorites</button>
+        !user?.favorite?.find((user) => {
+          return user && user.login == login;
+        }) ? (
+          <button onClick={add} className={styles.add}>
+            Add to favorites
+          </button>
         ) : (
-          <button onClick={remove}>Remove from favorites</button>
+          <button onClick={remove} className={styles.remove}>
+            Remove from favorites
+          </button>
         )
       ) : (
         <div className={styles.text}>login to gain access to favorites</div>
