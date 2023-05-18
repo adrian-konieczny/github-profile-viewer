@@ -15,6 +15,9 @@ export default function LoginForm() {
   } = useForm<IFormInput>();
   const router = useRouter();
   const { updateUser } = useAuth();
+  const github = async () => {
+    router.push("/api/github");
+  };
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     console.log(data);
     const res = await fetch("/api/login", {
@@ -60,6 +63,9 @@ export default function LoginForm() {
         {errors.password && "Password is required"}
         <input type="submit" />
       </form>
+      <button className={styles.github} onClick={github}>
+        Continue with github
+      </button>
     </div>
   );
 }

@@ -13,6 +13,11 @@ export default async function handler(
   const client = await clientPromise;
   const db = client.db("Github-Profile-Viewer");
   const { email, password } = JSON.parse(req.body);
+  if (!email || !password) {
+    return res
+      .status(400)
+      .json({ error: "we ty wypelnij tam ten meial i haslao gzibie" });
+  }
   const JWT_TOKEN_KEY = process.env.JWT_TOKEN_KEY;
 
   const result = await db.collection("Users").findOne({
@@ -22,9 +27,13 @@ export default async function handler(
   if (result) {
     const isPasswordValid = await compare(password, result.password);
     if (isPasswordValid && JWT_TOKEN_KEY) {
-      const token = jwt.sign({ email: email }, JWT_TOKEN_KEY, {
-        expiresIn: "1d",
-      });
+      const token = jwt.sign(
+        { email: email, github_id: result.github_id },
+        JWT_TOKEN_KEY,
+        {
+          expiresIn: "1d",
+        }
+      );
       res
         .setHeader(
           "Set-Cookie",
@@ -40,6 +49,7 @@ export default async function handler(
         .json({
           message: "Logged in successfuly",
           user: email,
+          github_id: result.github_id,
         });
     } else {
       res.status(400).json({

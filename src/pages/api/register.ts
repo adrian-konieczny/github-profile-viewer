@@ -24,6 +24,7 @@ export default async function handler(
     db.collection("Users").insertOne({
       email: email,
       password: passwordHash,
+      github_id: "",
       favorite: [],
     });
 
