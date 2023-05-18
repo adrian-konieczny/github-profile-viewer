@@ -12,7 +12,7 @@ export default function LoginForm() {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IFormInput>();
+  } = useForm<IFormInput>({ defaultValues: { email: "", password: "" } });
   const router = useRouter();
   const { updateUser } = useAuth();
   const github = async () => {
@@ -43,7 +43,7 @@ export default function LoginForm() {
   return (
     <div className={styles.registerForm}>
       <h1>Login form</h1>
-      <form onSubmit={handleSubmit(onSubmit)} method="post">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label>E-mail</label>
         <input
           className={errors.email && styles.error}

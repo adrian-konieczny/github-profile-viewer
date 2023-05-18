@@ -9,12 +9,12 @@ import { Favorite } from "./Favorite/Favorite";
 
 export const LandingPage = () => {
   const { updateUser, isLoggedIn, user } = useAuth();
-  const fetchSession = async () => {
-    const res = await fetch("/api/session");
-    const { user } = await res.json();
-    updateUser(user);
-  };
   useEffect(() => {
+    const fetchSession = async () => {
+      const res = await fetch("/api/session");
+      const { user } = await res.json();
+      updateUser(user);
+    };
     fetchSession();
   }, []);
   return (
