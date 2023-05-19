@@ -1,44 +1,16 @@
-.headerBanner {
-  background-color: var(--banner-color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px;
-  button.add {
-    background-color: #2ea44f;
-  }
-  button.remove {
-    background-color: #de1212;
-  }
-  button {
-    appearance: none;
-    border: 1px solid rgba(27, 31, 35, 0.15);
-    border-radius: 6px;
-    box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    display: inline-block;
-  }
+.add {
+  background-color: #2ea44f;
 }
-
-.text {
-  color: gray;
-  font-size: 1rem;
-  font-family: var(--font-family);
-  margin: 5px;
+.remove {
+  background-color: #de1212;
 }
-
-.avatar {
-  width: 148;
-  height: 148;
-  border-radius: 74px;
-  border: 2px solid white;
-  margin-top: 30px;
-  margin-bottom: 20px;
-}
-
-.name {
-  font-size: 1.5rem;
-  color: white;
+.button {
+  appearance: none;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  box-shadow: rgba(27, 31, 35, 0.1) 0 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  display: inline-block;
 }
