@@ -8,4 +8,3 @@ export const RegisterInfo = () => {
     </div>
   );
 };
-export default RegisterInfo;

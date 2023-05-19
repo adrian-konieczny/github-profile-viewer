@@ -1,12 +1,14 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Favorite.module.scss";
+
 type FavoriteProps = {
   users: {
     login: string;
     avatar: string;
   }[];
 };
+
 export const Favorite = ({ users }: FavoriteProps) => {
   return (
     <div className={styles.favorite}>

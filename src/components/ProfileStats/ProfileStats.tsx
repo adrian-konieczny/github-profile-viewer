@@ -6,11 +6,11 @@ type ProfileStatsProps = {
   following: number;
 };
 
-export default function ProfileStats({
+export const ProfileStats = ({
   repoCount,
   followers,
   following,
-}: ProfileStatsProps) {
+}: ProfileStatsProps) => {
   return (
     <ul className={styles.profileStats}>
       <li>
@@ -27,4 +27,4 @@ export default function ProfileStats({
       </li>
     </ul>
   );
-}
+};

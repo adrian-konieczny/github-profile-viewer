@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./HeaderBanner.module.scss";
-import { useAuth } from "@/contexts/AuthContext";
+import { FavoriteButton } from "../FavoriteButton/FavoriteButton";
 
 type HeaderBannerProps = {
   login: string;
@@ -9,47 +9,12 @@ type HeaderBannerProps = {
   name: string;
 };
 
-export default function HeaderBanner({
+export const HeaderBanner = ({
   login,
   avatar_url,
   bio,
   name,
-}: HeaderBannerProps) {
-  const { isLoggedIn, user, updateUser } = useAuth();
-  const add = async () => {
-    const res = await fetch("/api/update", {
-      method: "POST",
-      body: JSON.stringify({
-        login,
-        action: "add",
-        email: user?.email,
-        avatar: avatar_url,
-      }),
-    });
-    const fetchSession = async () => {
-      const res = await fetch("/api/session");
-      const { user } = await res.json();
-      updateUser(user);
-    };
-    fetchSession();
-  };
-  const remove = async () => {
-    const res = await fetch("/api/update", {
-      method: "POST",
-      body: JSON.stringify({
-        login,
-        action: "remove",
-        email: user?.email,
-        avatar: avatar_url,
-      }),
-    });
-    const fetchSession = async () => {
-      const res = await fetch("/api/session");
-      const { user } = await res.json();
-      updateUser(user);
-    };
-    fetchSession();
-  };
+}: HeaderBannerProps) => {
   return (
     <div className={styles.headerBanner}>
       <Image
@@ -62,21 +27,7 @@ export default function HeaderBanner({
       <h2 className={styles.name}>{name}</h2>
       <div className={styles.text}>{login}</div>
       <div className={styles.text}>{bio}</div>
-      {isLoggedIn ? (
-        !user?.favorite?.find((user) => {
-          return user && user.login == login;
-        }) ? (
-          <button onClick={add} className={styles.add}>
-            Add to favorites
-          </button>
-        ) : (
-          <button onClick={remove} className={styles.remove}>
-            Remove from favorites
-          </button>
-        )
-      ) : (
-        <div className={styles.text}>login to gain access to favorites</div>
-      )}
+      <FavoriteButton avatar_url={avatar_url} login={login} />
     </div>
   );
-}
+};

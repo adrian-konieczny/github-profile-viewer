@@ -1,10 +1,10 @@
 import Link from "next/link";
 import styles from "./Navbar.module.scss";
 import { useAuth } from "@/contexts/AuthContext";
-import { useRouter } from "next/router";
+
 export const Navbar = () => {
-  const router = useRouter();
   const { isLoggedIn } = useAuth();
+
   return (
     <div className={styles.navbar}>
       {isLoggedIn && (
@@ -24,4 +24,3 @@ export const Navbar = () => {
     </div>
   );
 };
-export default Navbar;

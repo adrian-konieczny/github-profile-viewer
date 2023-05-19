@@ -1,9 +1,9 @@
 import Head from "next/head";
-import RegisterInfo from "./RegisterInfo/RegisterInfo";
-import RegisterForm from "./RegisterForm/RegisterForm";
+import { RegisterInfo } from "./RegisterInfo/RegisterInfo";
+import { RegisterForm } from "./RegisterForm/RegisterForm";
 import styles from "./RegisterPage.module.scss";
 import { Return } from "@/components/Return/Return";
-import Navbar from "@/components/Navbar/Navbar";
+import { Navbar } from "@/components/Navbar/Navbar";
 
 export const RegisterPage = () => {
   return (

@@ -1,6 +1,6 @@
-import HeaderBanner from "@/components/HeaderBanner/HeaderBanner";
-import Navbar from "@/components/Navbar/Navbar";
-import ProfileStats from "@/components/ProfileStats/ProfileStats";
+import { HeaderBanner } from "@/components/HeaderBanner/HeaderBanner";
+import { Navbar } from "@/components/Navbar/Navbar";
+import { ProfileStats } from "@/components/ProfileStats/ProfileStats";
 import { RepoLists } from "@/components/ReposList/ReposList";
 import { Return } from "@/components/Return/Return";
 import { GetServerSideProps } from "next";

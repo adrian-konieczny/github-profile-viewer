@@ -2,31 +2,14 @@ import clientPromise from "@/lib/mongodb/connection";
 import type { NextApiRequest, NextApiResponse } from "next";
 import cookie from "cookie";
 import jwt from "jsonwebtoken";
+import { getGithubAccesToken } from "@/lib/utils/githubActions";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const client_id = process.env.CLIENT_ID;
-  const client_secret = process.env.CLIENT_SECRET;
   const code = req.query.code;
-
-  const response = await fetch(
-    `https://github.com/login/oauth/access_token?client_id=${client_id}&client_secret=${client_secret}&code=${code}`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    }
-  );
-
-  const json = await response.json();
-
-  console.log(json);
-
-  const { access_token } = json;
+  const access_token = await getGithubAccesToken(code);
 
   const user_res = await fetch("https://api.github.com/user", {
     headers: {

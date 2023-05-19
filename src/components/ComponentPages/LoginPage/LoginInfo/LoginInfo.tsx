@@ -8,4 +8,3 @@ export const LoginInfo = () => {
     </div>
   );
 };
-export default LoginInfo;

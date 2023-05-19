@@ -7,7 +7,7 @@ import {
 } from "react";
 
 type User = {
-  favorite?: { login: string; avatar: string }[];
+  favorite: { login: string; avatar: string }[];
   email?: string;
 };
 
@@ -15,6 +15,7 @@ type AuthContextType = {
   isLoggedIn: boolean;
   user?: User;
   updateUser: (user: User) => void;
+  refetchSession: () => Promise<void>;
 };
 
 type AuthContextProviderProps = {
@@ -24,21 +25,31 @@ type AuthContextProviderProps = {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthContextProvider = ({ children }: AuthContextProviderProps) => {
+  const [user, setUser] = useState<User | undefined>(undefined);
+
   const updateUser = (user?: User) => {
     setUser(user);
   };
-  const [user, setUser] = useState<User | undefined>(undefined);
-  useEffect(() => {
-    const fetchSession = async () => {
-      const res = await fetch("/api/session");
-      const { user } = await res.json();
-      setUser(user);
-    };
 
+  const fetchSession = async () => {
+    const res = await fetch("/api/session");
+    const { user } = await res.json();
+    setUser(user);
+  };
+
+  useEffect(() => {
     fetchSession();
   }, []);
+
   return (
-    <AuthContext.Provider value={{ isLoggedIn: !!user, user, updateUser }}>
+    <AuthContext.Provider
+      value={{
+        isLoggedIn: !!user,
+        user,
+        updateUser,
+        refetchSession: fetchSession,
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );

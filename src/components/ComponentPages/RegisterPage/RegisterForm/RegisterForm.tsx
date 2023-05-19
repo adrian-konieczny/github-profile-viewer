@@ -1,23 +1,24 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import styles from "./RegisterForm.module.scss";
 
-type IFormInput = {
+type RegisterFormInput = {
   email: string;
   password: string;
 };
-export default function RegisterForm() {
+export const RegisterForm = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    console.log(data);
+  } = useForm<RegisterFormInput>();
+
+  const onSubmit: SubmitHandler<RegisterFormInput> = async (data) => {
     const res = await fetch("/api/register", {
       method: "POST",
       body: JSON.stringify(data),
     });
     const { message } = await res.json();
+
     if (message) {
       alert(message);
     }
@@ -26,7 +27,7 @@ export default function RegisterForm() {
   return (
     <div className={styles.registerForm}>
       <h1>Register form</h1>
-      <form onSubmit={handleSubmit(onSubmit)} method="post">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <label>E-mail</label>
         <input
           className={errors.email && styles.error}
@@ -48,4 +49,4 @@ export default function RegisterForm() {
       </form>
     </div>
   );
-}
+};

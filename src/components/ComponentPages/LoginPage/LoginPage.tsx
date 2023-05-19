@@ -1,8 +1,9 @@
 import Head from "next/head";
-import LoginInfo from "./LoginInfo/LoginInfo";
-import LoginForm from "./LoginForm/LoginForm";
+import { LoginInfo } from "./LoginInfo/LoginInfo";
+import { LoginForm } from "./LoginForm/LoginForm";
 import styles from "./LoginPage.module.scss";
-import Navbar from "@/components/Navbar/Navbar";
+import { Navbar } from "@/components/Navbar/Navbar";
+
 export const LoginPage = () => {
   return (
     <>

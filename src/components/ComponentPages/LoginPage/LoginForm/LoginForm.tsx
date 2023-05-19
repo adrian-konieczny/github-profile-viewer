@@ -3,39 +3,38 @@ import styles from "./LoginForm.module.scss";
 import { useAuth } from "@/contexts/AuthContext";
 import { useRouter } from "next/router";
 
-type IFormInput = {
+type LoginFormInput = {
   email: string;
   password: string;
 };
-export default function LoginForm() {
+
+export const LoginForm = () => {
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm<IFormInput>({ defaultValues: { email: "", password: "" } });
+  } = useForm<LoginFormInput>({ defaultValues: { email: "", password: "" } });
   const router = useRouter();
-  const { updateUser } = useAuth();
-  const github = async () => {
+  const { refetchSession } = useAuth();
+
+  const handleGithubLogin = () => {
     router.push("/api/github");
   };
-  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
-    console.log(data);
+
+  const onSubmit: SubmitHandler<LoginFormInput> = async (data) => {
     const res = await fetch("/api/login", {
       method: "POST",
       body: JSON.stringify(data),
     });
     const { message, user } = await res.json();
+
     if (message) {
       alert(message);
     }
-    if (user) {
-      const fetchSession = async () => {
-        const res = await fetch("/api/session");
-        const data = await res.json();
-        updateUser(data);
-      };
 
-      fetchSession();
+    if (user) {
+      await refetchSession();
+
       router.push("/");
     }
   };
@@ -63,9 +62,9 @@ export default function LoginForm() {
         {errors.password && "Password is required"}
         <input type="submit" />
       </form>
-      <button className={styles.github} onClick={github}>
+      <button className={styles.github} onClick={handleGithubLogin}>
         Continue with github
       </button>
     </div>
   );
-}
+};

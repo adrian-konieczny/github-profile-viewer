@@ -2,21 +2,14 @@ import Head from "next/head";
 import { Info } from "./Info/Info";
 import { FetchUser } from "./FetchUser/FetchUser";
 import styles from "./LandingPage.module.scss";
-import Navbar from "@/components/Navbar/Navbar";
+import { Navbar } from "@/components/Navbar/Navbar";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
 import { Favorite } from "./Favorite/Favorite";
 
 export const LandingPage = () => {
   const { updateUser, isLoggedIn, user } = useAuth();
-  useEffect(() => {
-    const fetchSession = async () => {
-      const res = await fetch("/api/session");
-      const { user } = await res.json();
-      updateUser(user);
-    };
-    fetchSession();
-  }, []);
+
   return (
     <>
       <Head>
@@ -30,7 +23,7 @@ export const LandingPage = () => {
         <Info />
         <div className={styles.main}>
           <FetchUser />
-          {user?.favorite ? <Favorite users={user?.favorite} /> : ""}
+          <Favorite users={user?.favorite || []} />
         </div>
       </div>
     </>
