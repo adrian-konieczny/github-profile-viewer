@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import axios from "axios";
 import { fetchUserData } from "@/lib/utils/githubActions";
 
 export default async function handler(
