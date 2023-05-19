@@ -9,8 +9,8 @@ type VerifyAuthProps = {
 type JWTPayload = {
   email: string;
 };
-const JWT_TOKEN_KEY = process.env.JWT_TOKEN_KEY;
 export const verifyAuth = ({ token }: VerifyAuthProps) => {
+  const JWT_TOKEN_KEY = process.env.JWT_TOKEN_KEY;
   if (JWT_TOKEN_KEY && token) {
     try {
       const { email } = verify(token, JWT_TOKEN_KEY) as JWTPayload;
@@ -23,6 +23,7 @@ export const verifyAuth = ({ token }: VerifyAuthProps) => {
 };
 
 export const createToken = (params: any) => {
+  const JWT_TOKEN_KEY = process.env.JWT_TOKEN_KEY;
   if (JWT_TOKEN_KEY) {
     const token = jwt.sign({ ...params }, JWT_TOKEN_KEY, {
       expiresIn: "1d",

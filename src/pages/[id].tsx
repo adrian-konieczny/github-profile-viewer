@@ -3,6 +3,8 @@ import { Navbar } from "@/components/Navbar/Navbar";
 import { ProfileStats } from "@/components/ProfileStats/ProfileStats";
 import { RepoLists } from "@/components/ReposList/ReposList";
 import { Return } from "@/components/Return/Return";
+import { fetchUserData } from "@/lib/utils/githubActions";
+import axios from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
@@ -41,14 +43,18 @@ export const getServerSideProps: GetServerSideProps<{ data: Data }> = async ({
   query,
 }) => {
   const { id } = query;
-  const response = await fetch(`/api/user/${id}`);
-  const data = await response.json();
+  if (typeof id != "string") {
+    return { props: { data: {}, repodata: {} } };
+  }
+
+  const { data, repodata } = await fetchUserData(id);
   return {
-    props: { ...data },
+    props: { data, repodata },
   };
 };
 
 export default function UserPage({ data, repodata }: UserPageProps) {
+  console.log(data);
   return (
     <>
       <Head>

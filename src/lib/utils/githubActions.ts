@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const client_id = process.env.CLIENT_ID;
 const client_secret = process.env.CLIENT_SECRET;
 
@@ -37,4 +39,13 @@ export const getGithubUser = async (access_token: string) => {
   });
   const email = primary_email.email;
   return { ...user_data, email };
+};
+
+export const fetchUserData = async (id: string) => {
+  const { data } = await axios(`https://api.github.com/users/${id}`);
+
+  const { data: repodata } = await axios(
+    `https://api.github.com/users/${id}/repos`
+  );
+  return { data, repodata };
 };
