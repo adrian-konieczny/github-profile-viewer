@@ -32,5 +32,6 @@ export default async function handler(
   const token = createToken({ email: email, github_id: user.github_id });
   res.setHeader("Set-Cookie", createAuthCookie(token)).status(200).json({
     message: "Logged in successfuly",
+    success: true,
   });
 }

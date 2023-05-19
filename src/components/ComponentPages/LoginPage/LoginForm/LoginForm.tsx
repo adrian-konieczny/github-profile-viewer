@@ -26,13 +26,12 @@ export const LoginForm = () => {
       method: "POST",
       body: JSON.stringify(data),
     });
-    const { message, user } = await res.json();
+    const { message, success } = await res.json();
 
     if (message) {
       alert(message);
     }
-
-    if (user) {
+    if (success) {
       await refetchSession();
 
       router.push("/");
