@@ -1,19 +1,7 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import cookie from "cookie";
+import type { NextApiResponse } from "next";
+import { clearAuthCookie } from "@/lib/utils/verify";
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
-  res.setHeader(
-    "Set-Cookie",
-    cookie.serialize("token", "", {
-      httpOnly: true,
-      expires: new Date(0),
-      secure: process.env.NODE_ENV !== "development",
-      sameSite: "strict",
-      path: "/",
-    })
-  );
+export default async function handler(res: NextApiResponse) {
+  res.setHeader("Set-Cookie", clearAuthCookie());
   res.redirect("/");
 }
