@@ -41,7 +41,7 @@ export const getServerSideProps: GetServerSideProps<{ data: Data }> = async ({
   query,
 }) => {
   const { id } = query;
-  const response = await fetch(`/user/${id}`);
+  const response = await fetch(`/api/user/${id}`);
   const data = await response.json();
   return {
     props: { ...data },
