@@ -1,4 +1,5 @@
 import styles from "./Info.module.scss";
+
 export const Info = () => {
   return (
     <div className={styles.info}>
@@ -10,7 +11,7 @@ export const Info = () => {
       </div>
       <div>
         You can preview here some basic info about github users by typing
-        username after /
+        username
       </div>
     </div>
   );

@@ -1,7 +1,10 @@
-import HeaderBanner from "@/components/HeaderBanner/HeaderBanner";
-import ProfileStats from "@/components/ProfileStats/ProfileStats";
+import { HeaderBanner } from "@/components/HeaderBanner/HeaderBanner";
+import { Navbar } from "@/components/Navbar/Navbar";
+import { ProfileStats } from "@/components/ProfileStats/ProfileStats";
 import { RepoLists } from "@/components/ReposList/ReposList";
 import { Return } from "@/components/Return/Return";
+import { fetchUserData } from "@/lib/utils/githubActions";
+import axios from "axios";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 
@@ -16,6 +19,7 @@ type UserPageProps = {
     public_repos: number;
     followers: number;
     following: number;
+    message?: string;
   };
   repodata: {
     name: string;
@@ -36,44 +40,51 @@ type Data = {
 };
 
 export const getServerSideProps: GetServerSideProps<{ data: Data }> = async ({
-  res,
   query,
 }) => {
-  const response = await fetch(`https://api.github.com/users/${query.id}`);
-  const data: Data = await response.json();
+  const { id } = query;
+  if (typeof id != "string") {
+    return { props: { data: {}, repodata: {} } };
+  }
 
-  const repores = await fetch(`https://api.github.com/users/${query.id}/repos`);
-  const repodata = await repores.json();
-
-  res.setHeader(
-    "Cache-Control",
-    "public, s-maxage=60, stale-while-revalidate=120"
-  );
-
+  const { data, repodata } = await fetchUserData(id);
   return {
     props: { data, repodata },
   };
 };
 
 export default function UserPage({ data, repodata }: UserPageProps) {
+  console.log(data);
   return (
     <>
       <Head>
         <title>{data.login ? data.login : "User not found"}</title>
       </Head>
-      <HeaderBanner
-        login={data.login}
-        avatar_url={data.avatar_url}
-        bio={data.bio}
-        name={data.name}
-      />
-      <ProfileStats
-        repoCount={data.public_repos}
-        followers={data.followers}
-        following={data.following}
-      />
-      <RepoLists repodata={repodata} />
-      <Return />
+      <Navbar />
+      <div>
+        {!data.message ? (
+          <>
+            <HeaderBanner
+              login={data.login}
+              avatar_url={data.avatar_url}
+              bio={data.bio}
+              name={data.name}
+            />
+            <ProfileStats
+              repoCount={data.public_repos}
+              followers={data.followers}
+              following={data.following}
+            />
+            <RepoLists repodata={repodata} />
+            <Return />
+          </>
+        ) : (
+          <>
+            <h1>User not found</h1>
+            <Return />
+          </>
+        )}
+      </div>
     </>
   );
 }

@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./HeaderBanner.module.scss";
+import { FavoriteButton } from "../FavoriteButton/FavoriteButton";
 
 type HeaderBannerProps = {
   login: string;
@@ -8,12 +9,12 @@ type HeaderBannerProps = {
   name: string;
 };
 
-export default function HeaderBanner({
+export const HeaderBanner = ({
   login,
   avatar_url,
   bio,
   name,
-}: HeaderBannerProps) {
+}: HeaderBannerProps) => {
   return (
     <div className={styles.headerBanner}>
       <Image
@@ -26,6 +27,7 @@ export default function HeaderBanner({
       <h2 className={styles.name}>{name}</h2>
       <div className={styles.text}>{login}</div>
       <div className={styles.text}>{bio}</div>
+      <FavoriteButton avatar_url={avatar_url} login={login} />
     </div>
   );
-}
+};

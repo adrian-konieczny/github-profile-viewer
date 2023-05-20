@@ -4,13 +4,15 @@ import styles from "./FetchUser.module.scss";
 
 export const FetchUser = () => {
   const router = useRouter();
-  let username = useRef<HTMLInputElement>(null);
+  const username = useRef<HTMLInputElement>(null);
+
   const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (null !== username.current) {
       router.push(`/${username.current.value}`);
     }
   };
+
   return (
     <div className={styles.user}>
       <h1>Pick Your Profile</h1>
